@@ -1,0 +1,22 @@
+[project]
+name = "constellation-lab-science"
+version = "2.0.0"
+description = "Reproducible Python/C++ orbital propagation, catalog ingestion, conjunction screening, maneuver simulation, and OR-Tools optimization service for Constellation Lab."
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi==0.115.6",
+  "uvicorn==0.34.0",
+  "pydantic==2.10.4",
+  "numpy==2.2.1",
+  "scipy==1.15.0",
+  "sgp4==2.23",
+  "pyarrow==18.1.0",
+  "ortools==9.11.4210",
+  "httpx==0.28.1",
+  "pytest==8.3.4",
+  "psutil==6.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

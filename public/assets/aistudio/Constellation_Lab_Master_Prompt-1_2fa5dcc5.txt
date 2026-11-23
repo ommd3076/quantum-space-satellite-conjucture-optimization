@@ -1,0 +1,134 @@
+CONSTELLATION LAB — RESEARCH-GRADE SATELLITE CONSTELLATION SIMULATION & NOVEL ALGORITHM DEVELOPMENT
+MASTER PROMPT FOR GOOGLE AI STUDIO CREATE APP / BUILD MODE
+Version: 2026-11-23
+
+PROJECT SCOPE
+We are returning to the original SATELLITE CONSTELLATION scientific research direction. Ignore the newer TESS/exoplanet and other unrelated concepts. The purpose is to create a working, validated orbital and mission simulation platform, implement strong classical baselines, and only then design and rigorously evaluate a potentially novel constellation optimization mechanism.
+
+CRITICAL CONTEXT RULE
+First inspect any context or files I explicitly provide. Do NOT invent a previous research title, selected design, algorithm or outcome. If the exact historical constellation proposal is unavailable, state that openly and adopt as a PROVISIONAL, NOT HISTORICALLY CONFIRMED, starting problem:
+Physics-constrained design and adaptive scheduling of a low-Earth-orbit Earth-observation satellite constellation under limited observation windows, onboard energy/storage, downlink opportunities and uncertain events.
+Lock the reference scenario before optimizing it. Record every modeling decision and unresolved ambiguity.
+
+YOUR TEAM ROLES
+Act as an astrodynamics specialist, mission-design engineer, mathematical optimization researcher, numerical analyst, scientific Python engineer, full-stack developer, independent reproducibility auditor, and adversarial scientific reviewer. Critique each architectural choice before implementing it, but prioritize completed, tested, executable work rather than endless planning.
+
+NON-NEGOTIABLE SCIENTIFIC INTEGRITY
+- NEVER fabricate measurement data, experimental outcomes, error bars, runtimes, solver status, improvement percentages, confidence intervals or citations.
+- NEVER use scripted orbit animations or random dashboard numbers as a stand-in for computation.
+- All quantities must have traceable provenance: VERIFIED_SOURCE, SYNTHETIC_ASSUMPTION, MODEL_ESTIMATE, MEASURED_EXPERIMENT or UNVERIFIED.
+- Synthetic configurations are acceptable only when conspicuously labeled, justified and reproducible; they are not observations.
+- Do not call a candidate algorithm 'novel' until prior art has been investigated. Do not claim publication, global optimality, guarantees or astrophysical accuracy without evidence.
+- Log negative results, failed tests, infeasible plans and timeouts. Do not cherry-pick.
+- Say exactly what was implemented, executed, independently checked, or remains untested.
+- The simulation/optimization numerical core must not rely on an LLM to generate scientific outputs.
+
+PHASE 0 — RESEARCH FINALIZATION BEFORE CODE GENERATION
+1. Extract or reconstruct the actual research problem from accessible materials, with a clear separation between known project decisions and new assumptions.
+2. Define mission type, target geography, planning horizon, decision variables, constraints, objective functions, uncertainty model, experimental settings, evaluation metrics and falsifiable hypotheses.
+3. Search verifiable prior work current through November 23, 2026 on Earth observation satellite constellation design, Walker Delta configurations, coverage optimization, agile Earth-observation scheduling, rolling horizon, distributed scheduling, robust optimization, uncertainty and event-triggered re-planning. Verify paper titles, authors, publication dates and DOIs/URLs. If browsing is unavailable, mark citations as unverified rather than inventing them.
+4. Distinguish known techniques from truly different potential mechanisms. Generate three research-algorithm candidates; compare physical relevance, novelty plausibility, technical feasibility, math tractability, testability and implementation budget. Select a justified candidate WITHOUT claiming novelty is established.
+5. Produce research/problem_definition.md, research/literature_review.md, research/novelty_audit.md, research/mathematical_formulation.md, research/assumptions_register.md and research/constellation_decision.md.
+6. Establish preregistered experiments, baseline equivalence and exact conditions that would falsify the research hypothesis.
+
+PHASE 1 — FINALIZE A REFERENCE CONSTELLATION
+Implement configurable LEO Walker Delta orbit layouts with total satellites T, orbital planes P and phasing F, specifying the exact convention. Define and validate altitude/semimajor axis, eccentricity, inclination, RAAN, argument of perigee, mean anomaly, epoch, coordinate frames, field of view, payload resource bounds and ground stations. Require T divisible by P for standard equally populated Walker configurations.
+
+Candidate scales for benchmarking only (not real measured fleet sizes): 6–12 satellites, 18–36 satellites and 48–96 satellites. A 24-satellite / 6-plane configuration may be evaluated as a provisional reference but is NOT presumed optimal. Determine inclination, altitude, phase and sensor model by an explicit experimental comparison. If claiming a Sun-synchronous orbit, verify nodal precession against the chosen gravitational model.
+
+Report coverage, mean/maximum revisit gap, regional fairness, observation opportunity, communications contact, resources and simulation scalability. Freeze a versioned baseline scenario and save configuration manifests/hashes for fair comparisons.
+
+PHASE 2 — BUILD PHYSICALLY MEANINGFUL SIMULATION FIRST
+Prefer Python 3 + NumPy/SciPy for scientific computing, with an appropriate validated astrodynamics package such as Orekit or Basilisk where integration is viable. Create documented standalone Python service or package if Build mode cannot run Python; Google AI Studio's interactive web preview is not itself proof that numerical backend integration works. Use FastAPI for the optional science API. Frontend can be React + TypeScript with CesiumJS or an equivalent interactive Earth globe. Simulation outputs must come from the scientific backend, not browser-side guessed coordinates.
+
+Implement, in order:
+A. Two-body Keplerian propagation with tested state-element conversions, orbital period, conserved energy and angular momentum.
+B. J2 perturbation as an optional model, with specified integrator, numerical tolerances and timestep-convergence tests.
+C. Consistent UTC epochs and necessary dynamical timescales, SI unit handling, ECI/GCRF/ITRF/TEME coordinate discipline, Earth rotation, geodetic WGS84 and longitude wrapping.
+D. Satellite ground tracks, Earth occultation, target line-of-sight, field-of-view access, observation-duration windows, ground-station elevation/visibility and contact windows.
+E. Resource models for battery/energy, onboard storage, downlink capacity, payload pointing and task conflicts. Mark simplified models and omit unsupported dynamics rather than fake them.
+F. Optional eclipse, atmospheric drag, slewing, weather/cloud and communication uncertainty only when actual documented models and consistent input sources exist. Distinguish forecasts, sourced observations and synthetic stochastic events.
+
+Validate selected orbital trajectories against a separate independent reference tool (e.g., Orekit, GMAT or Basilisk) when available. Use SGP4 ONLY with compatible actual TLE/OMM data and correct frames/element conventions; do not misuse arbitrary Kepler elements as TLEs. State any external validation blocker clearly.
+
+Create physics unit tests, numerical convergence tests and regression tests; establish acceptance tolerances BEFORE seeing final results. Include tests for orbital period, energy/angular momentum conservation in two-body dynamics, J2 nodal drift direction and scale where applicable, coordinate round trips, eclipse/occultation geometry, ground access and edge cases.
+
+PHASE 3 — REPRODUCIBLE DATA, SCENARIOS AND AUDIT TRAIL
+Build scenario generators for targets, deadlines, priorities, observation arrivals, resource limits, ground station outages, communication constraints, observation failures and uncertainty. Use deterministic seeds, documented distributions and clearly separated source-backed data vs synthetic parameters. No assertion of real-world representativeness without evidence.
+
+Persist for each run: full input scenario, source URLs and versions, timestamps, provenance classification, random seeds, code version or commit, solver configuration/status/bounds, numerical tolerances, hardware, runtime, raw outputs, log files and errors. Hash stable scenario/configuration artifacts. Make data leakage impossible or explicitly audited when training/validation/test sets are relevant.
+
+PHASE 4 — BUILD AND VERIFY FAIR CLASSICAL OPTIMIZATION BASELINES
+Implement complete executable baseline algorithms BEFORE the novel algorithm:
+1) Deterministic feasible greedy scheduler.
+2) Independent deadline/priority heuristic.
+3) CP-SAT or MILP exact/bounded solver for compatible finite problems (e.g. OR-Tools).
+4) Standard rolling-horizon/receding-horizon scheduler.
+5) Exhaustive or certified exact small-instance check when computationally manageable.
+
+Define binary assignment, visibility and timing constraints, exclusivity, deadlines, energy, storage, downlink, slew/pointing where modeled and resource transitions. Feed every solver the SAME objectives, constraints and scenarios. A separate independently written verifier must validate every solution; do not trust solver status alone. Distinguish proven optimality, best incumbent, bound, optimality gap, timeout, infeasible or failed run.
+
+PHASE 5 — DEVELOP A CANDIDATE RESEARCH ALGORITHM
+Investigate concrete, physically motivated ways to improve existing methods: risk-sensitive observation reward, correlation-aware uncertainty, dynamic/event-triggered replanning, constraint-preserving incremental repair, decomposition of resource constraints, robust optimization, information-aware scheduling and related ideas. These concepts are NOT inherently novel; audit verified prior art and specify what is genuinely different.
+
+For the selected research hypothesis provide:
+- Formal sets, notation, decision variables, constraints, optimization objective and units.
+- Precise algorithmic mechanics, pseudocode, implementation interfaces, initialization, update rule and termination.
+- Assumptions on uncertain processes, and any distribution or ambiguity set.
+- Proofs for any claimed feasibility/performance guarantees or label them unproven conjectures.
+- Complexity analysis or honestly qualified empirical scaling estimates.
+- Failure handling and feasible fallback behavior.
+
+Implement real code in backend/src/algorithms/proposed/ with logs, tests, parameter configuration and reproducibility. Do not rename a conventional baseline and portray it as an invention. If prior art invalidates the novelty claim, revise the claim or abandon the candidate. Preserve failures and negative results.
+
+PHASE 6 — EXPERIMENTAL PROTOCOL
+Compare proposed approach with each baseline on frozen paired scenarios and equal computational budgets. Measure physically meaningful outputs such as completed priority-weighted observations, on-time delivery, coverage, revisit gaps, data age, storage use, downlink latency, resource violation counts, algorithm runtime and solver quality. Specify exactly which metrics are optimized and which are monitored.
+
+Use independent seeds, replicates, confidence intervals, justified sample sizes or precision analysis, effect sizes, clear statistics and pre-declared exclusions. Include scenario suites spanning satellite counts, inclination/altitude, task density, deadline pressure, downlink scarcity, uncertainty severity and failures. Use held-out cases after parameter tuning.
+
+Mandatory component ablation: turn off each proposed algorithmic mechanism and examine the contribution under identical settings. Include stability/sensitivity analysis, run failure accounting, scaling measurements and worst-case/tail outcomes. Generate plots ONLY from persisted run artifacts. Do not invent data or report unrun experiments.
+
+PHASE 7 — BUILD THE INTERACTIVE RESEARCH APPLICATION
+Project name: 'Constellation Lab — Orbital Simulation & Optimization Research Platform'.
+
+Create six real functional views:
+1. MISSION CONTROL: interactive Cesium/3D Earth; simulated satellite positions and propagated tracks; ground stations, access links and footprints; timeline play/pause/scrub and per-satellite diagnostics. The display must be linked to numerically calculated states.
+2. CONSTELLATION DESIGNER: configurable Walker T/P/F, altitude, inclination, eccentricity, epoch, FOV, targets and ground stations; allow Save Scenario and Run Propagation.
+3. ORBIT & COVERAGE ANALYTICS: generated coverage/revisit/contact plots with definitions, units, time windows and model-fidelity indicators.
+4. ALGORITHM LAB: choose greedy, heuristic, CP-SAT/MILP, rolling-horizon and proposed method; run on exactly the same frozen scenario; show schedule/Gantt, objective, feasibility, bound, runtime and errors.
+5. EXPERIMENT LAB: run batches/seeds/ablations; inspect raw data and uncertainty intervals; regenerate figures and export reproducibility packages.
+6. SCIENTIFIC AUDIT CENTER: show data provenance, verified inputs, synthetic assumptions, validation tests, scenario hashes, errors, unverified claims and fidelity warnings.
+
+Disable or clearly label incomplete interfaces; never show placeholder performance numbers as real experimental outcomes. Use attractive, precise design without sacrificing scientific clarity.
+
+PHASE 8 — FILE STRUCTURE AND ENGINEERING
+Recommended maintainable layout:
+constellation-lab/
+  frontend/src/{views,components,visualizations,api,state}/
+  backend/src/{orbits,physics,frames,geometry,payloads,communications,resources,scenarios,algorithms,validation,api}/
+  backend/src/algorithms/{greedy,heuristic,cpsat,rolling_horizon,proposed}/
+  experiments/{configs,runners,analysis,ablations,outputs}/
+  data/{sources,synthetic,manifests}/
+  research/{problem_definition.md,literature_review.md,novelty_audit.md,mathematical_formulation.md,constellation_decision.md,assumptions_register.md,experimental_protocol.md,limitations.md}/
+  tests/{unit,integration,numerical,optimization,regression}/
+  scripts/
+  Dockerfile
+  docker-compose.yml
+  README.md
+
+Use actual runnable dependency manifests, health checks, CLI scripts, APIs and tests. Keep the simulation independent from the UI. Dockerize and document how to execute the Python computation outside the Google AI Studio preview if necessary. Avoid needless microservices.
+
+DELIVERY GATES — DO NOT SKIP
+Gate 0: Problem, assumptions, baseline constellation and novelty hypothesis formally specified.
+Gate 1: Executable orbital propagator and independent physics checks; frontend displays computed coordinates.
+Gate 2: Real access windows, contacts, resource constraints, frozen scenarios and scenario tests.
+Gate 3: Working verified classical baselines and reproducible outputs.
+Gate 4: Mathematical candidate research algorithm and its actual executable implementation.
+Gate 5: Fair benchmarks, ablations, statistics, negative-result accounting and full traceability.
+Gate 6: Integrated robust UI, source code, documentation and reproducibility bundle.
+
+INITIAL RESPONSE AND IMMEDIATE ACTION
+In your first response, summarize the scientifically defined mission, provisional assumptions, chosen constellation baseline, testable hypothesis, planned simulation stack, execution-environment limitations, next source files and tests. Then IMMEDIATELY start writing source code for Gate 1: 'Constellation configuration -> real orbital propagation -> unit-tested coordinates -> 3D globe rendering'. Do not stop after making a plan, a fake UI or an architecture illustration. Build the smallest working end-to-end physical simulation first and demonstrate which tests actually executed.
+
+DEFINITION OF DONE
+An independent researcher can install the repository, run a frozen experiment with deterministic inputs, observe physically computed orbits, reproduce validated observation windows, run baselines and candidate method, independently verify resource feasibility, regenerate figures from actual raw results, and inspect every scientific assumption and limitation. If you cannot complete all this in one execution, deliver a verified partial implementation and explicitly identify blockers and remaining gates instead of falsely claiming completion.

@@ -1,0 +1,738 @@
+{
+  "experiment_id": "OPT-1795433867-0a8544f7",
+  "executed_at_utc": "2026-11-23T11:37:47.116416+00:00",
+  "input_hash": "0a8544f7d8e94d83",
+  "seed": 20261123,
+  "scope_disclosure": "Scheduling solved over 24 controllable synthetic spacecraft and 30 targets (60 refined obs windows, 133 DL contacts). NOT a global 50,000-satellite MILP.",
+  "resources": {
+    "storage_capacity_gb": 48.0,
+    "battery_capacity_wh": 120.0,
+    "battery_reserve_floor_wh": 24.0,
+    "initial_battery_wh": 96.0,
+    "obs_power_w": 65.0,
+    "dl_power_w": 85.0,
+    "solar_charge_w": 42.0,
+    "min_slew_gap_sec": 12.0,
+    "provenance": "SYNTHETIC_ASSUMPTION (nominal EO microsatellite payload & bus power model)"
+  },
+  "results": [
+    {
+      "algorithm_id": "greedy_priority",
+      "novelty_status": "CLASSICAL_BASELINE",
+      "solver_status": "HEURISTIC_FEASIBLE",
+      "best_objective_bound": null,
+      "optimality_gap_pct": null,
+      "wall_time_ms": 1.147,
+      "scheduled_observations": [
+        {
+          "window_id": "OBS-00005",
+          "sat_id": "SYN-S01-P001-S021",
+          "target_id": "TGT-008",
+          "start_sec": 17002.97,
+          "end_sec": 17027.97,
+          "priority": 7.68,
+          "data_volume_gb": 3.0
+        },
+        {
+          "window_id": "OBS-00053",
+          "sat_id": "SYN-S01-P009-S021",
+          "target_id": "TGT-001",
+          "start_sec": 0.0,
+          "end_sec": 35.0,
+          "priority": 7.76,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00025",
+          "sat_id": "SYN-S01-P003-S041",
+          "target_id": "TGT-028",
+          "start_sec": 20589.14,
+          "end_sec": 20624.14,
+          "priority": 5.73,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00011",
+          "sat_id": "SYN-S01-P002-S011",
+          "target_id": "TGT-022",
+          "start_sec": 85.78,
+          "end_sec": 130.78,
+          "priority": 6.98,
+          "data_volume_gb": 5.4
+        }
+      ],
+      "scheduled_downlinks": [
+        {
+          "contact_id": "DL-00010",
+          "sat_id": "SYN-S01-P001-S021",
+          "station_id": "GS-WALLOPS",
+          "start_sec": 21265.55,
+          "end_sec": 21270.55,
+          "volume_gb": 3.0
+        },
+        {
+          "contact_id": "DL-00122",
+          "sat_id": "SYN-S01-P009-S021",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 6551.02,
+          "end_sec": 6558.02,
+          "volume_gb": 4.2
+        },
+        {
+          "contact_id": "DL-00022",
+          "sat_id": "SYN-S01-P002-S011",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 2204.77,
+          "end_sec": 2213.77,
+          "volume_gb": 5.4
+        }
+      ],
+      "verification": {
+        "verified_feasible": true,
+        "violation_count": 0,
+        "violations": [],
+        "verified_deterministic_utility": 28.15,
+        "verified_realized_clear_utility": 20.47,
+        "scheduled_observations_count": 4,
+        "scheduled_downlinks_count": 3,
+        "downlinked_volume_gb": 12.6,
+        "event_log_sample": [
+          {
+            "t_sec": 0.0,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-001",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 95.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 85.78,
+            "sat_id": "SYN-S01-P002-S011",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-022",
+            "storage_after_gb": 5.4,
+            "battery_after_wh": 96.19,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 2204.77,
+            "sat_id": "SYN-S01-P002-S011",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 5.4,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.79
+          },
+          {
+            "t_sec": 6551.02,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 4.2,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.83
+          },
+          {
+            "t_sec": 17002.97,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-008",
+            "storage_after_gb": 3.0,
+            "battery_after_wh": 119.55,
+            "cloud_blocked": true
+          },
+          {
+            "t_sec": 20589.14,
+            "sat_id": "SYN-S01-P003-S041",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-028",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 119.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 21265.55,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-WALLOPS",
+            "volume_gb": 3.0,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.88
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_id": "earliest_deadline_weighted",
+      "novelty_status": "CLASSICAL_BASELINE",
+      "solver_status": "HEURISTIC_FEASIBLE",
+      "best_objective_bound": null,
+      "optimality_gap_pct": null,
+      "wall_time_ms": 0.123,
+      "scheduled_observations": [
+        {
+          "window_id": "OBS-00053",
+          "sat_id": "SYN-S01-P009-S021",
+          "target_id": "TGT-001",
+          "start_sec": 0.0,
+          "end_sec": 35.0,
+          "priority": 7.76,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00005",
+          "sat_id": "SYN-S01-P001-S021",
+          "target_id": "TGT-008",
+          "start_sec": 17002.97,
+          "end_sec": 17027.97,
+          "priority": 7.68,
+          "data_volume_gb": 3.0
+        },
+        {
+          "window_id": "OBS-00011",
+          "sat_id": "SYN-S01-P002-S011",
+          "target_id": "TGT-022",
+          "start_sec": 85.78,
+          "end_sec": 130.78,
+          "priority": 6.98,
+          "data_volume_gb": 5.4
+        },
+        {
+          "window_id": "OBS-00025",
+          "sat_id": "SYN-S01-P003-S041",
+          "target_id": "TGT-028",
+          "start_sec": 20589.14,
+          "end_sec": 20624.14,
+          "priority": 5.73,
+          "data_volume_gb": 4.2
+        }
+      ],
+      "scheduled_downlinks": [
+        {
+          "contact_id": "DL-00122",
+          "sat_id": "SYN-S01-P009-S021",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 6551.02,
+          "end_sec": 6558.02,
+          "volume_gb": 4.2
+        },
+        {
+          "contact_id": "DL-00010",
+          "sat_id": "SYN-S01-P001-S021",
+          "station_id": "GS-WALLOPS",
+          "start_sec": 21265.55,
+          "end_sec": 21270.55,
+          "volume_gb": 3.0
+        },
+        {
+          "contact_id": "DL-00022",
+          "sat_id": "SYN-S01-P002-S011",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 2204.77,
+          "end_sec": 2213.77,
+          "volume_gb": 5.4
+        }
+      ],
+      "verification": {
+        "verified_feasible": true,
+        "violation_count": 0,
+        "violations": [],
+        "verified_deterministic_utility": 28.15,
+        "verified_realized_clear_utility": 20.47,
+        "scheduled_observations_count": 4,
+        "scheduled_downlinks_count": 3,
+        "downlinked_volume_gb": 12.6,
+        "event_log_sample": [
+          {
+            "t_sec": 0.0,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-001",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 95.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 85.78,
+            "sat_id": "SYN-S01-P002-S011",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-022",
+            "storage_after_gb": 5.4,
+            "battery_after_wh": 96.19,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 2204.77,
+            "sat_id": "SYN-S01-P002-S011",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 5.4,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.79
+          },
+          {
+            "t_sec": 6551.02,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 4.2,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.83
+          },
+          {
+            "t_sec": 17002.97,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-008",
+            "storage_after_gb": 3.0,
+            "battery_after_wh": 119.55,
+            "cloud_blocked": true
+          },
+          {
+            "t_sec": 20589.14,
+            "sat_id": "SYN-S01-P003-S041",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-028",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 119.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 21265.55,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-WALLOPS",
+            "volume_gb": 3.0,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.88
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_id": "rolling_horizon",
+      "novelty_status": "CLASSICAL_BASELINE",
+      "solver_status": "HEURISTIC_FEASIBLE",
+      "best_objective_bound": null,
+      "optimality_gap_pct": null,
+      "wall_time_ms": 0.092,
+      "scheduled_observations": [
+        {
+          "window_id": "OBS-00053",
+          "sat_id": "SYN-S01-P009-S021",
+          "target_id": "TGT-001",
+          "start_sec": 0.0,
+          "end_sec": 35.0,
+          "priority": 7.76,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00011",
+          "sat_id": "SYN-S01-P002-S011",
+          "target_id": "TGT-022",
+          "start_sec": 85.78,
+          "end_sec": 130.78,
+          "priority": 6.98,
+          "data_volume_gb": 5.4
+        },
+        {
+          "window_id": "OBS-00005",
+          "sat_id": "SYN-S01-P001-S021",
+          "target_id": "TGT-008",
+          "start_sec": 17002.97,
+          "end_sec": 17027.97,
+          "priority": 7.68,
+          "data_volume_gb": 3.0
+        },
+        {
+          "window_id": "OBS-00025",
+          "sat_id": "SYN-S01-P003-S041",
+          "target_id": "TGT-028",
+          "start_sec": 20589.14,
+          "end_sec": 20624.14,
+          "priority": 5.73,
+          "data_volume_gb": 4.2
+        }
+      ],
+      "scheduled_downlinks": [
+        {
+          "contact_id": "DL-00122",
+          "sat_id": "SYN-S01-P009-S021",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 6551.02,
+          "end_sec": 6558.02,
+          "volume_gb": 4.2
+        },
+        {
+          "contact_id": "DL-00022",
+          "sat_id": "SYN-S01-P002-S011",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 2204.77,
+          "end_sec": 2213.77,
+          "volume_gb": 5.4
+        },
+        {
+          "contact_id": "DL-00010",
+          "sat_id": "SYN-S01-P001-S021",
+          "station_id": "GS-WALLOPS",
+          "start_sec": 21265.55,
+          "end_sec": 21270.55,
+          "volume_gb": 3.0
+        }
+      ],
+      "verification": {
+        "verified_feasible": true,
+        "violation_count": 0,
+        "violations": [],
+        "verified_deterministic_utility": 28.15,
+        "verified_realized_clear_utility": 20.47,
+        "scheduled_observations_count": 4,
+        "scheduled_downlinks_count": 3,
+        "downlinked_volume_gb": 12.6,
+        "event_log_sample": [
+          {
+            "t_sec": 0.0,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-001",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 95.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 85.78,
+            "sat_id": "SYN-S01-P002-S011",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-022",
+            "storage_after_gb": 5.4,
+            "battery_after_wh": 96.19,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 2204.77,
+            "sat_id": "SYN-S01-P002-S011",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 5.4,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.79
+          },
+          {
+            "t_sec": 6551.02,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 4.2,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.83
+          },
+          {
+            "t_sec": 17002.97,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-008",
+            "storage_after_gb": 3.0,
+            "battery_after_wh": 119.55,
+            "cloud_blocked": true
+          },
+          {
+            "t_sec": 20589.14,
+            "sat_id": "SYN-S01-P003-S041",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-028",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 119.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 21265.55,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-WALLOPS",
+            "volume_gb": 3.0,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.88
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_id": "ortools_cpsat",
+      "novelty_status": "EXACT_SOLVER_BASELINE (Google OR-Tools CP-SAT)",
+      "solver_status": "OPTIMAL",
+      "best_objective_bound": 28.15,
+      "optimality_gap_pct": 0.0,
+      "wall_time_ms": 16.116,
+      "scheduled_observations": [
+        {
+          "window_id": "OBS-00005",
+          "sat_id": "SYN-S01-P001-S021",
+          "target_id": "TGT-008",
+          "start_sec": 17002.97,
+          "end_sec": 17027.97,
+          "priority": 7.68,
+          "data_volume_gb": 3.0
+        },
+        {
+          "window_id": "OBS-00025",
+          "sat_id": "SYN-S01-P003-S041",
+          "target_id": "TGT-028",
+          "start_sec": 20589.14,
+          "end_sec": 20624.14,
+          "priority": 5.73,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00058",
+          "sat_id": "SYN-S01-P010-S011",
+          "target_id": "TGT-001",
+          "start_sec": 1094.3,
+          "end_sec": 1129.3,
+          "priority": 7.76,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00060",
+          "sat_id": "SYN-S01-P010-S011",
+          "target_id": "TGT-022",
+          "start_sec": 17132.58,
+          "end_sec": 17177.58,
+          "priority": 6.98,
+          "data_volume_gb": 5.4
+        }
+      ],
+      "scheduled_downlinks": [
+        {
+          "contact_id": "DL-00010",
+          "sat_id": "SYN-S01-P001-S021",
+          "station_id": "GS-WALLOPS",
+          "start_sec": 21265.55,
+          "end_sec": 21270.55,
+          "volume_gb": 3.0
+        },
+        {
+          "contact_id": "DL-00132",
+          "sat_id": "SYN-S01-P010-S011",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 7665.47,
+          "end_sec": 7672.47,
+          "volume_gb": 4.2
+        }
+      ],
+      "verification": {
+        "verified_feasible": true,
+        "violation_count": 0,
+        "violations": [],
+        "verified_deterministic_utility": 28.15,
+        "verified_realized_clear_utility": 20.47,
+        "scheduled_observations_count": 4,
+        "scheduled_downlinks_count": 2,
+        "downlinked_volume_gb": 7.2,
+        "event_log_sample": [
+          {
+            "t_sec": 1094.3,
+            "sat_id": "SYN-S01-P010-S011",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-001",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 108.13,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 7665.47,
+            "sat_id": "SYN-S01-P010-S011",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 4.2,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.83
+          },
+          {
+            "t_sec": 17002.97,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-008",
+            "storage_after_gb": 3.0,
+            "battery_after_wh": 119.55,
+            "cloud_blocked": true
+          },
+          {
+            "t_sec": 17132.58,
+            "sat_id": "SYN-S01-P010-S011",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-022",
+            "storage_after_gb": 5.4,
+            "battery_after_wh": 119.19,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 20589.14,
+            "sat_id": "SYN-S01-P003-S041",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-028",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 119.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 21265.55,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-WALLOPS",
+            "volume_gb": 3.0,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.88
+          }
+        ]
+      }
+    },
+    {
+      "algorithm_id": "locality_repair_rhr",
+      "novelty_status": "UNPROVEN_CANDIDATE",
+      "solver_status": "HEURISTIC_FEASIBLE",
+      "best_objective_bound": null,
+      "optimality_gap_pct": null,
+      "wall_time_ms": 0.139,
+      "scheduled_observations": [
+        {
+          "window_id": "OBS-00053",
+          "sat_id": "SYN-S01-P009-S021",
+          "target_id": "TGT-001",
+          "start_sec": 0.0,
+          "end_sec": 35.0,
+          "priority": 7.76,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00005",
+          "sat_id": "SYN-S01-P001-S021",
+          "target_id": "TGT-008",
+          "start_sec": 17002.97,
+          "end_sec": 17027.97,
+          "priority": 7.68,
+          "data_volume_gb": 3.0
+        },
+        {
+          "window_id": "OBS-00025",
+          "sat_id": "SYN-S01-P003-S041",
+          "target_id": "TGT-028",
+          "start_sec": 20589.14,
+          "end_sec": 20624.14,
+          "priority": 5.73,
+          "data_volume_gb": 4.2
+        },
+        {
+          "window_id": "OBS-00002",
+          "sat_id": "SYN-S01-P001-S001",
+          "target_id": "TGT-022",
+          "start_sec": 1282.73,
+          "end_sec": 1327.73,
+          "priority": 6.98,
+          "data_volume_gb": 5.4
+        }
+      ],
+      "scheduled_downlinks": [
+        {
+          "contact_id": "DL-00122",
+          "sat_id": "SYN-S01-P009-S021",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 6551.02,
+          "end_sec": 6558.02,
+          "volume_gb": 4.2
+        },
+        {
+          "contact_id": "DL-00010",
+          "sat_id": "SYN-S01-P001-S021",
+          "station_id": "GS-WALLOPS",
+          "start_sec": 21265.55,
+          "end_sec": 21270.55,
+          "volume_gb": 3.0
+        },
+        {
+          "contact_id": "DL-00005",
+          "sat_id": "SYN-S01-P001-S001",
+          "station_id": "GS-CANBERRA",
+          "start_sec": 3442.73,
+          "end_sec": 3451.73,
+          "volume_gb": 5.4
+        }
+      ],
+      "verification": {
+        "verified_feasible": true,
+        "violation_count": 0,
+        "violations": [],
+        "verified_deterministic_utility": 28.15,
+        "verified_realized_clear_utility": 20.47,
+        "scheduled_observations_count": 4,
+        "scheduled_downlinks_count": 3,
+        "downlinked_volume_gb": 12.6,
+        "event_log_sample": [
+          {
+            "t_sec": 0.0,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-001",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 95.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 1282.73,
+            "sat_id": "SYN-S01-P001-S001",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-022",
+            "storage_after_gb": 5.4,
+            "battery_after_wh": 110.15,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 3442.73,
+            "sat_id": "SYN-S01-P001-S001",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 5.4,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.79
+          },
+          {
+            "t_sec": 6551.02,
+            "sat_id": "SYN-S01-P009-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-CANBERRA",
+            "volume_gb": 4.2,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.83
+          },
+          {
+            "t_sec": 17002.97,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-008",
+            "storage_after_gb": 3.0,
+            "battery_after_wh": 119.55,
+            "cloud_blocked": true
+          },
+          {
+            "t_sec": 20589.14,
+            "sat_id": "SYN-S01-P003-S041",
+            "event": "SCHEDULED_OBSERVATION",
+            "target_id": "TGT-028",
+            "storage_after_gb": 4.2,
+            "battery_after_wh": 119.37,
+            "cloud_blocked": false
+          },
+          {
+            "t_sec": 21265.55,
+            "sat_id": "SYN-S01-P001-S021",
+            "event": "DOWNLINK_EXECUTED",
+            "station_id": "GS-WALLOPS",
+            "volume_gb": 3.0,
+            "storage_after_gb": 0.0,
+            "battery_after_wh": 119.88
+          }
+        ]
+      }
+    }
+  ]
+}

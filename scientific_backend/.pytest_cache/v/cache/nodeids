@@ -1,0 +1,10 @@
+[
+  "tests/test_science_backend.py::test_cross_propagator_rk4_vs_scipy_dop853",
+  "tests/test_science_backend.py::test_fastapi_endpoints_smoke",
+  "tests/test_science_backend.py::test_impulsive_maneuver_vis_viva_and_tsiolkovsky",
+  "tests/test_science_backend.py::test_maneuver_rejects_excess_propellant_burn",
+  "tests/test_science_backend.py::test_omm_csv_deduplication_and_six_digit_id_support",
+  "tests/test_science_backend.py::test_refined_access_ortools_cpsat_and_independent_verifier",
+  "tests/test_science_backend.py::test_synthetic_50k_uniqueness_and_proximity_screening",
+  "tests/test_science_backend.py::test_vallado_2006_sgp4_independent_reference"
+]

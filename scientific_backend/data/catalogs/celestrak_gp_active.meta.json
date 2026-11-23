@@ -1,0 +1,9 @@
+{
+  "source_provider": "CelesTrak GP/OMM CSV",
+  "group": "active",
+  "source_url": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=csv",
+  "retrieved_at_utc": "2026-11-23T11:35:11.875244+00:00",
+  "retrieved_unix": 1795433711.8925383,
+  "sha256_raw": "95ed97714b65abc5cb809d2b9b23321987e084ee44efaa8374960f599f9cd5d1",
+  "http_status": 200
+}

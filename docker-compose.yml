@@ -1,0 +1,34 @@
+services:
+  science-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.science
+    container_name: constellation-lab-science
+    ports:
+      - "8000:8000"
+    environment:
+      - CELESTRAK_MIN_CACHE_AGE_SEC=7200
+      - SPACETRACK_IDENTITY=${SPACETRACK_IDENTITY:-}
+      - SPACETRACK_PASSWORD=${SPACETRACK_PASSWORD:-}
+    volumes:
+      - ./scientific_backend/data:/app/scientific_backend/data
+      - ./experiments/results:/app/experiments/results
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://127.0.0.1:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: constellation-lab-web
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - PYTHON_SCIENCE_URL=http://science-backend:8000
+    depends_on:
+      science-backend:
+        condition: service_healthy

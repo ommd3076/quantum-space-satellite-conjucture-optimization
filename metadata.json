@@ -1,0 +1,6 @@
+{
+  "name": "Constellation Lab — Orbital Simulation & Optimization Research Platform",
+  "description": "Research-grade LEO satellite constellation simulation, orbital propagation, access/resource modeling, classical optimization baselines, and reproducible experimental evaluation platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

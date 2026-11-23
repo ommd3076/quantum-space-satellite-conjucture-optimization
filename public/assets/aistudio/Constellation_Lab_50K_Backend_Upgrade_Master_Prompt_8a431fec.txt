@@ -1,0 +1,119 @@
+CONSTELLATION LAB — EXISTING APP UPGRADE, NOT A REBUILD
+MASTER FOLLOW-UP PROMPT | 23 November 2026
+
+You are continuing work INSIDE THE EXISTING GOOGLE AI STUDIO CONSTELLATION LAB PROJECT. Inspect the actual files and current runtime before changing anything. Preserve the good 3D visualizations and the navigation, but replace the scientific-computation layer with an executable, reproducible, independently validated Python/C++ backend. This is a backend-first scientific engineering task, NOT a UI-generation request.
+
+CONTEXT FROM THE PRIOR BUILD (CLAIMS, NOT VERIFIED FACTS):
+- Existing frontend: React/TypeScript 3D mission-control UI, Constellation Designer, Coverage, Algorithms, Experiments, Scientific Audit.
+- Current backend appears to be TypeScript in Express, using backend/src/orbits/{kepler,propagator}.ts, geometry/access.ts, algorithms/* and server.ts.
+- The app claims 24 satellites, 36 targets, 6 ground stations, 6-hour synthetic missions, internal tests, plus a candidate SRA-RHR algorithm.
+- The builder reported repeated timeouts and a dev-server startup failure during construction.
+- It also admitted NO independent cross-validation with Orekit, GMAT or Basilisk, and NO Python scientific engine in the Build container.
+- Its five-seed result did NOT establish superiority of SRA-RHR over rolling-horizon scheduling. Do not promote that candidate as proven or novel.
+
+MISSION: MAKE THIS A GENUINE, SCIENTIFICALLY DEFENSIBLE HIGH-DENSITY SATELLITE-CONSTELLATION LAB WITH 50,000 DISTINCT PROPAGATED OBJECTS, REAL ORBITAL-CATALOG INGESTION, ACTUAL OPTIONAL ORBITAL MANEUVERS, EVENT-LEVEL OPERATIONS, AND REPRODUCIBLE OPTIMIZATION.
+
+ABSOLUTE INTEGRITY RULE:
+50,000 DOES NOT MEAN 50,000 REAL ACTIVE SATELLITES. Current publicly cataloged active satellites are substantially fewer. The UI MUST distinguish:
+(A) REAL_CATALOG: only actual objects supported by accessible, date-stamped catalog GP/OMM data. The object count is determined by a real deduplicated source, never padded.
+(B) SYNTHETIC_50K: 50,000 separately initialized, physically modeled objects in a hypothetical constellation or mixed stress scenario. They are *simulated* satellites, not a real present-day fleet. Each has an ID, independently calculated orbit, propagated state and provenance.
+Never duplicate one orbit 50,000 times; never put randomly drifting points on a globe; never use placeholder telemetry or claim proprietary operational inputs are public. Display ACTUAL_INGESTED, ACTUAL_PROPAGATED, SYNTHETIC_PROPAGATED, FAILED, STALE, UNAVAILABLE, and RENDERED separately. Do not substitute the number of rendered dots for the number numerically propagated.
+
+NON-NEGOTIABLE ARCHITECTURE:
+1. KEEP the existing React/Cesium or Three.js visual frontend, routing and design unless a targeted change is necessary.
+2. ADD a separately runnable Python 3.12+ FastAPI research service under scientific_backend/. Use NumPy, SciPy, sgp4 (C++ extension with SatrecArray), Astropy/PyERFA as justified, Pandas/Polars/PyArrow, and OR-Tools as needed; pin dependencies. You may select modern equivalents when evidenced. Use C++/pybind11/Numba ONLY after profiling shows a measured bottleneck. Avoid starting with custom unverified orbital physics.
+3. The current Node/Express backend may remain an API gateway and frontend development host. It MUST NOT generate scientific metrics when Python is unreachable. Implement proper proxy/error states.
+4. Provide a Docker Compose deployment, local Python venv setup, a headless CLI, pytest, reproducible experiment runner, startup health checks and sample immutable input data if redistribution permits.
+5. If Google AI Studio's Build runtime cannot actually install and execute the Python service, GENERATE the files anyway, write correct local/Docker launch instructions, mark status PYTHON_BACKEND_NOT_EXECUTED, and do not fabricate passing tests. Do not silently fall back to TypeScript synthetic data. Never block the frontend by pretending a missing service returned success.
+
+MILESTONE 0 — FORENSIC CODE AUDIT & EVIDENCE RESET (DO THIS FIRST)
+- Inspect package.json, server.ts, frontend API client, orbital propagation files, geometry, algorithms, tests, dataset inputs and git state.
+- Identify where every metric originates (actual calculations, static preset, stochastic realization, hardcoded constant, frontend-derived value).
+- Identify whether prior screenshots and tests prove numerical correctness (usually they do not).
+- Fix the dev-server startup error only as needed to retain the existing working UI.
+- Write docs/current_state_audit.md with verified source paths, observed commands/results, unexecuted claims, scientific gaps, and the exact migration plan.
+- Freeze existing UI screenshots and a functional baseline before replacing the back end.
+- Do not repeat earlier claims such as '10/10 physics tests passed' or 'exact optimal scheduling' without re-running tests and inspecting code and solver certificates.
+
+MILESTONE 1 — REAL SOURCE DATA AND PROVENANCE
+- Implement input adapters for CelesTrak GP/OMM (prefer CSV or other supported non-TLE formats compatible with >=6-digit IDs) and, optionally, user-authorized Space-Track GP. The user must supply any credentials securely via environment variables; never hardcode them or bypass access controls.
+- Relevant docs: https://celestrak.org/NORAD/documentation/gp-data-formats.php , https://celestrak.org/satcat/ , https://celestrak.org/usage-policy.php , https://www.space-track.org/documentation .
+- Respect published update frequency, caching, status codes, and CelesTrak use policy. Do not hammer providers from the UI, per-user request, or a loop.
+- Maintain source, exact URL, retrieval timestamp, orbital-element epoch, full object ID, classification, provenance hash, data age, propagator model and validity warnings for each object.
+- Deduplicate by stable catalogue ID and preserve the original raw snapshot. Label satellites, rocket bodies, debris and unknown separately. SATCAT metadata is NOT itself the same as a fresh GP orbital-element set. Missing elements means cannot propagate that object.
+- When network access is unavailable, load a real, previously fetched immutable snapshot IF available, otherwise show the API and test framework with status DATA_NOT_RETRIEVED. Do not invent a real-object catalog.
+- Implement catalog summary endpoints with actual counts and failures. Ensure table filters cannot transform debris into 'active satellites'.
+
+MILESTONE 2 — CORRECT PHYSICS FOR REAL AND HYPOTHETICAL OBJECTS
+- REAL_CATALOG: Use SGP4/SDP4 as applicable to GP-compatible orbital elements, preserving their mean-element semantics, reference frames and gravity conventions. Handle and report every propagator return/error code. Use valid source epochs and data-age warnings.
+- SYNTHETIC_50K: Generate 50,000 unique, documented orbital initial states. Build a parameterized family of Walker configurations, explicit shell/plane/phasing definitions, altitudes/inclinations and possible mixed populations. Mark constellation size as a hypothetical scalability stress case; do NOT claim it is a deployable or collision-safe mission simply because 50k orbits were created.
+- Use a validated two-body + J2 or higher-fidelity numerical model for synthetic initial Cartesian state vectors. Show position and velocity in SI units internally. Provide selectable physics fidelity. For large-scale full-constellation screening, choose and justify an efficient propagation approximation rather than 50k high-cost adaptive integrators at every frontend frame.
+- For orbital maneuver experiments on CONTROLLED SYNTHETIC spacecraft, support impulsive delta-v events in an explicitly identified inertial frame at scheduled epochs, update velocity state, propagate the post-maneuver trajectory with a consistent Cartesian numerical force model, and compute delta-v/fuel budget with the rocket equation using sourced or labeled hypothetical Isp and mass. Support optional finite-burn only if genuinely implemented and validated.
+- Do not 'edit a TLE' or apply an arbitrary delta-v to a published SGP4 trajectory while claiming it remains SGP4-validated. Use the propagated Cartesian state as an explicitly approximate initial condition for the maneuvered numerical branch and label the model transition and uncertainty.
+- Distinguish attitude slews/task rescheduling from actual translational orbit maneuvers. Do not invent real-fleet maneuver history, thrust, fuel mass, or battery state.
+- Coordinate conversion must handle TEME vs other inertial frames and ECEF/ITRF with documented standards and available Earth orientation/time-scale data. Simple GMST rotations are allowable only in labeled simplified mode.
+- Independent validation: compare representative trajectories and access windows against Orekit or another reference implementation, with source versions, inputs, epochs, frames, error metrics and predetermined tolerances. A self-test against the same code does not count as independent validation.
+
+MILESTONE 3 — SCALE TO 50,000 WITHOUT PRETENDING
+- Required stress test: exactly 50,000 separately initialized and propagated hypothetical objects; 24-hour horizon sampled every 5 minutes (14,400,000 object-time state samples). Also test a shorter 1-minute step horizon, and run larger tests only as resources allow.
+- Record actual count of valid/invalid propagated objects and sample points. Never drop failed objects silently.
+- Use vectorized/batched SGP4 for eligible real GP sets and chunked batched numerical/equivalent validated propagation for synthetic population. Profile before introducing a new language.
+- Plan RAM and I/O: 50,000 x 1,440 one-minute epochs = 72 million object-time positions; XYZ float64 alone is 1.728 GB. Include velocity, dates, array overhead and intermediate buffers in resource estimates. Do not allocate all N x T arrays without a memory plan. Chunk by objects/time and stream output to compressed or columnar on-disk artifacts, with progress and cancellation.
+- Implement /jobs endpoints, queueing, streamed progress, cancellation, deterministic outputs, resumability only where safe, and run metadata. Every benchmark records machine CPU, RAM, GPU if used, process RSS/peak RAM, threads, throughput (states/second), wall-clock time, errors, and artifact sizes.
+- Do not publish an arbitrary speed target as achieved. Measure it on actual local hardware. If the performance target is missed, retain correct results and show the bottleneck.
+- Make 50k objects visible using point primitives or GPU instancing, with only selected objects shown as detailed models/orbit trails. Send efficient binary Float32 position frames in a documented coordinate frame, while retaining full-precision states on the server. Interpolate between valid simulation epochs only for visual smoothness and label interpolation. Do not convert client-rendered interpolations into new scientific results.
+- Implement visible/propagated counts independently, view frustum/layer filtering and level-of-detail. No 50k React mesh components or 50k orbit-polylines by default.
+
+MILESTONE 4 — ACTUAL DENSE ENVIRONMENTAL EVENTS
+- Compute satellite-to-ground access via ellipsoid geometry, visibility and sensor field-of-view with explicit payload definitions and off-nadir restrictions. Use event/window refinement near horizon crossings rather than accepting coarse 5-minute sampling as precise access times.
+- Ground stations require real coordinates with provenance; when synthetic, label them. True weather/cloud, battery, storage, downlink capacity, payload pointing, mission priority and deadlines are not normally obtainable for every real object: use explicit hypothetical resource models or sourced public data only.
+- Optionally implement proximity/conjunction screening over 50k propagated objects with a scalable broad-phase neighbor search and a numerically checked narrow-phase closest-approach calculation. Naively doing every object pair at every time is unacceptable (~1.25 billion unordered pairs for 50k at a single epoch).
+- A deterministic close approach is NOT a collision probability, conjunction warning, or operational safety recommendation without required uncertainty/covariance and validated models. Do not claim flight-worthiness.
+- Build event logs: request created -> access opportunity -> scheduled observation -> storage transition -> downlink -> completion or explicit failure. Every event must be reproducible from saved inputs.
+
+MILESTONE 5 — REAL OPTIMIZERS AND NON-FABRICATED MANEUVERS
+- Treat 50k as the propagation/environment scale; DO NOT claim to solve one giant 50k-satellite global MILP to optimality without measured evidence. Define how many objects are controllable, how many are background traffic, and how many actually receive requests or maneuvers.
+- Implement research-relevant baselines on exactly matched scenarios: greedy priority, earliest deadline/weighted heuristic, rolling horizon, CP-SAT/MILP for tractable subproblems, and a hierarchical/decomposition baseline for increasing sizes. Preserve solver status, bounds, incumbent quality, and elapsed time.
+- Implement an independent feasibility checker for geometry, timing, pointing/slew, downlink, storage, power and any orbital delta-v/fuel constraints included. Do not mistake schedule replanning for a physical orbit maneuver.
+- Candidate research hypothesis (not guaranteed novelty): a physics-aware, event-driven, hierarchical scheduling/repair method that exploits sparsity/locality to prioritize expensive checks and reoptimize only scientifically justified affected regions, possibly with risk-aware constraints. Audit prior art BEFORE naming it original; formulate mathematics, identify truly new mechanics, implement ablations, and explicitly abandon 'novel' claims if prior work overlaps.
+- If implementing orbit-maneuver optimization, keep it a separate experimental branch with objective terms for delta-v, post-maneuver coverage, constraint violations and closest approach; do not mix real uncontrolled catalog objects with controlled synthetic spacecraft.
+- For small instances, compare with independently verified exhaustive/MILP/CP-SAT optima. For larger ones, compare under equal CPU budgets, identical scenario seeds and identical objective definitions; show relative gaps only when valid bounds exist.
+- Do not claim 5-seed experiments prove superiority. Preregister a larger paired protocol, provide effect sizes/uncertainty intervals, negative outcomes, and blind held-out scenarios. Check published literature and document citations; never manufacture a source or an algorithm novelty certificate.
+
+MILESTONE 6 — FRONTEND INTEGRATION WITHOUT FAKE VALUES
+- Do not redesign the navigation. Update the 3D visualization to accept batches of real backend state vectors and show real catalog vs hypothetical 50k mode, source/epoch, actual computed count, propagation errors, and the true simulation time.
+- Add an explicit 'Backend status: Connected / Offline / Unverified', 'Data origin', 'Propagator', 'Last ingestion', 'Age of elements', 'Actual records used', 'Objects propagated', 'Objects rendered', 'Validation', 'Scientific limitations' ribbon.
+- If the scientific service is offline, show NO SCIENTIFIC RESULTS and disable experiment execution. A clearly labeled old screenshot/demo view may still be available, but must never be presented as a running 50k simulation.
+- A 50k synthetic demonstration must allow selecting a specific satellite, retrieving its initial orbital elements, current propagated state, expected frame, maneuver history (if any), and independently generated access windows.
+- Every analytical chart must consume actual backend outputs and carry artifact IDs; no prefilled performance gains, random utility, hardcoded 'confidence intervals', front-end generated scientific figures, or fabricated test-pass badges.
+
+MILESTONE 7 — REPRODUCIBLE RESEARCH PACKAGE
+Required source layout (adapt to existing repo):
+scientific_backend/app/api, catalogs, propagation, frames, maneuvers, access, screening, optimization, validation, artifacts, tests
+scientific_backend/scripts/fetch_catalog.py, bench_50k.py, validate_orbits.py, run_experiments.py
+scientific_backend/requirements.lock or pyproject.toml+lock
+experiments/configs, experiments/results, experiments/reports
+research/data_provenance.md, model_fidelity.md, mathematical_formulation.md, novelty_audit.md, validation_protocol.md, benchmark_protocol.md
+Dockerfile.science, docker-compose.yml, README_RUN_SCIENCE.md
+
+Every run should create machine-readable provenance and raw artifacts with experiment ID, file hashes, exact source inputs, datetime/time scale, source epoch, random seed, force/propagation model, solver configuration, git hash, CPU/RAM environment, error codes, wall time and validation results.
+
+IMPLEMENTATION & RESPONSE RULES:
+A. Work in short, verifiable increments. DO NOT run another broad 35-minute build that changes 20 files and times out. Do not use UI screenshots as proof of physics.
+B. First reply: concise forensic audit, single exact architectural decision, file-by-file migration order, and the precise Milestone 1 deliverable. Then CREATE/EDIT executable files immediately.
+C. After each milestone, run available commands, print real outputs and test results, fix failures, and identify precisely what has NOT been tested.
+D. Keep the React application running while introducing the science service; make clean API contracts, don't break existing route bindings.
+E. NEVER assert Python tests executed if your environment lacks Python. If blocked, generate the runnable external Python service with setup scripts and produce a copy-pastable local test command, then mark BLOCKED_BY_RUNTIME.
+F. If any dataset, code API, numerical value, paper citation, acceleration performance or test result is unknown, mark it UNKNOWN and inspect it instead of guessing.
+G. Do not stop at another design document. Actually ship a minimal independently checkable scientific vertical slice: read real OMM snapshot -> batch SGP4 state vectors -> real per-object IDs/epochs -> backend endpoint -> existing 3D viewer. Then implement the complete 50k synthetic benchmark.
+
+HARD ACCEPTANCE GATES — THE APP IS NOT 'DONE' UNTIL:
+1. A REAL_CATALOG endpoint reports an actual unpadded count from a real source snapshot with provenance, and returns individually computed real ephemerides or an explicit inability to retrieve source data.
+2. SYNTHETIC_50K computes states for 50,000 unique objects; independently checks at least a random sample and validates the whole run for error codes, counts and basic physical invariants; produces a saved, reproducible benchmark artifact.
+3. Actual Python/C++ commands have been executed in a compatible environment, or results truthfully say NOT EXECUTED. No TS fallback is labeled Python validation.
+4. A controllable object can execute a defined delta-v maneuver in the numerical simulation with state discontinuity, changed future trajectory and physically coherent fuel accounting (or this optional feature is explicitly not implemented).
+5. The existing 3D frontend renders the computed batches and does not silently substitute invented positions.
+6. At least one actual scheduling experiment uses computed access windows and independent schedule verification with real measured runtime, correct solver status and stored artifacts.
+7. The candidate novel method is honestly labeled unproven until literature and proper experiments support it.
+
+START NOW: Perform Milestone 0, then create the Python/C++ scientific backend and its first end-to-end executable vertical slice. Preserve my current UI. Do not claim success on tasks that your execution environment cannot run.
